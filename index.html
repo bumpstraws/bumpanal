@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNOGO Straws | Designer Cacao Bump Straws & Functional Jewelry</title>
+
+  <!-- Google Fonts: Montserrat & Questrial -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Questrial&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Free Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Trunk CSS Asset -->
+  <link data-trunk rel="css" href="styles.css" />
+
+  <!-- Plausible Analytics (Update data-domain to your live domain) -->
+  <script defer data-domain="snogostraws.com" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
+  <script>
+    window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
+  </script>
+
+  <!-- UpPromote Direct Tracking & Cross-Domain Linker -->
+  <script>
+    window.upDataLayer = window.upDataLayer || [];
+    function upTag() { return upDataLayer.push(arguments); }
+    upTag('config', 'myshopify_domain', 'snogocacao.myshopify.com');
+    upTag('config', 'linker', ['snogocacao.myshopify.com', 'shop.snogostraws.com', 'snogostraws.com']);
+  </script>
+  <script async src="https://static-pixel.uppromote.com/collect/v1/collect.js"></script>
+
+  <!-- Rust <-> JS Bridge for Plausible, UpPromote & Shopify Buy Button SDK -->
+  <script>
+    // 1. Plausible Custom Event Bridge called from Rust WASM
+    window.snogoTrackPlausible = function(eventName, propsJson) {
+      try {
+        var props = JSON.parse(propsJson || "{}");
+        if (typeof window.plausible === 'function') {
+          window.plausible(eventName, { props: props });
+        }
+        console.debug("[Snogo Rust Telemetry]", eventName, props);
+      } catch (e) {
+        console.warn("Plausible bridge error:", e);
+      }
+    };
+
+    // 2. UpPromote Cross-Domain Linker Getter called from Rust WASM
+    window.snogoGetUpPromoteLinker = function() {
+      try {
+        return (typeof upTag === 'function') ? (upTag('app', 'linker') || '') : '';
+      } catch (e) {
+        return '';
+      }
+    };
+
+    // 3. Shopify Buy Button Initializer (No Product Pictures, Rust Checkout URL Decorator)
+    window.snogoInitBuyButtons = function() {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy && window.ShopifyBuy.UI) {
+        ShopifyBuyInit();
+      } else {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+
+      function buildSnogoBuyOptions(isLightCard) {
+        var textColor = isLightCard ? '#000000' : '#ffffff';
+        var btnBg = isLightCard ? '#000000' : '#33CCCC';
+        var btnText = isLightCard ? '#ffffff' : '#000000';
+        var btnHoverBg = '#FF6699';
+
+        return {
+          "product": {
+            "contents": {
+              "img": false,
+              "imgWithCarousel": false,
+              "title": false,
+              "description": false,
+              "price": true,
+              "options": true,
+              "button": false,
+              "buttonWithQuantity": true
+            },
+            "styles": {
+              "product": {
+                "text-align": "left",
+                "@media (min-width: 601px)": {
+                  "max-width": "100%",
+                  "margin-left": "0px",
+                  "margin-bottom": "0px"
+                }
+              },
+              "button": {
+                "font-family": "Montserrat, sans-serif",
+                "font-weight": "bold",
+                "font-size": "14px",
+                "padding-top": "14px",
+                "padding-bottom": "14px",
+                "color": btnText,
+                "background-color": btnBg,
+                ":hover": {
+                  "color": "#000000",
+                  "background-color": btnHoverBg
+                },
+                ":focus": {
+                  "background-color": btnHoverBg
+                },
+                "border-radius": "0px"
+              },
+              "quantityInput": {
+                "font-size": "14px",
+                "padding-top": "14px",
+                "padding-bottom": "14px",
+                "color": textColor,
+                "border-color": isLightCard ? "#cbd5e1" : "#334155"
+              },
+              "price": {
+                "font-family": "Montserrat, sans-serif",
+                "font-weight": "bold",
+                "font-size": "18px",
+                "color": textColor
+              },
+              "compareAt": {
+                "font-family": "Montserrat, sans-serif",
+                "color": textColor
+              },
+              "unitPrice": {
+                "font-family": "Montserrat, sans-serif",
+                "color": textColor
+              }
+            },
+            "text": {
+              "button": "Add to cart"
+            },
+            "googleFonts": ["Montserrat"]
+          },
+          "option": {
+            "styles": {
+              "label": {
+                "font-family": "Montserrat, sans-serif",
+                "font-size": "12px",
+                "color": textColor
+              },
+              "select": {
+                "font-family": "Montserrat, sans-serif",
+                "font-size": "13px"
+              }
+            },
+            "googleFonts": ["Montserrat"]
+          },
+          "cart": {
+            "buttonDestination": function (component) {
+              var checkoutUrl = component.model.checkoutUrl || component.model.webUrl;
+              if (checkoutUrl) {
+                // Delegate URL parameter decoration (_upl, sca_ref, discount, utm_*) to Rust WASM
+                if (window.wasmBindings && typeof window.wasmBindings.rust_decorate_checkout_url === 'function') {
+                  window.location.href = window.wasmBindings.rust_decorate_checkout_url(checkoutUrl);
+                } else {
+                  window.location.href = checkoutUrl;
+                }
+              } else {
+                component.openCheckout();
+              }
+            },
+            "events": {
+              "afterInit": function (cartComponent) {
+                if (window.upTag && cartComponent.model && cartComponent.model.id) {
+                  window.upTag('event', 'cart_updated', { id: cartComponent.model.id });
+                }
+              }
+            },
+            "styles": {
+              "button": {
+                "font-family": "Montserrat, sans-serif",
+                "font-size": "16px",
+                "padding-top": "16px",
+                "padding-bottom": "16px",
+                "background-color": "#000000",
+                ":hover": { "background-color": "#33CCCC", "color": "#000000" },
+                ":focus": { "background-color": "#000000" },
+                "border-radius": "0px"
+              }
+            },
+            "text": {
+              "total": "Subtotal",
+              "button": "Checkout"
+            },
+            "contents": {
+              "note": true
+            },
+            "popup": false,
+            "googleFonts": ["Montserrat"]
+          },
+          "toggle": {
+            "styles": {
+              "toggle": {
+                "font-family": "Montserrat, sans-serif",
+                "background-color": "#000000",
+                ":hover": { "background-color": "#33CCCC" },
+                ":focus": { "background-color": "#000000" }
+              },
+              "count": {
+                "font-size": "16px"
+              }
+            },
+            "googleFonts": ["Montserrat"]
+          }
+        };
+      }
+
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'snogocacao.myshopify.com',
+          storefrontAccessToken: '8d295bcc4bc93588d541ff04792938d1',
+        });
+
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          var mounts = document.querySelectorAll('.snogo-shopify-mount');
+          var cartBound = false;
+
+          mounts.forEach(function (mountEl) {
+            if (mountEl.getAttribute('data-mounted') === 'true') return;
+            var handle = mountEl.getAttribute('data-handle');
+            if (!handle) return;
+            mountEl.setAttribute('data-mounted', 'true');
+
+            var isLight = mountEl.getAttribute('data-theme') === 'light';
+
+            ui.createComponent('product', {
+              handle: handle,
+              node: mountEl,
+              moneyFormat: '%24%7B%7Bamount%7D%7D',
+              options: buildSnogoBuyOptions(isLight)
+            }).then(function () {
+              if (!cartBound) {
+                var cart = ui.components.cart && ui.components.cart[0];
+                if (cart) {
+                  cartBound = true;
+                  cart.on('afterRender', function () {
+                    var cartId = (cart.model && cart.model.id) ? String(cart.model.id) : 'unknown';
+                    if (window.upTag && cart.model && cart.model.id) {
+                      window.upTag('event', 'cart_updated', { id: cart.model.id });
+                    }
+                    // Extract line items & subtotal and log to Rust WASM + Plausible
+                    if (window.wasmBindings && typeof window.wasmBindings.rust_log_cart_event === 'function') {
+                      var itemsList = [];
+                      if (cart.model && cart.model.lineItems) {
+                        cart.model.lineItems.forEach(function(li) {
+                          itemsList.push((li.title || 'Item') + ' x' + (li.quantity || 1));
+                        });
+                      }
+                      var summary = itemsList.length > 0 ? itemsList.join(', ') : 'Cart empty / initialized';
+                      var subtotal = (cart.model && cart.model.subtotalPrice) ? String(cart.model.subtotalPrice) : '0.00';
+                      window.wasmBindings.rust_log_cart_event('cart_updated', cartId, summary, subtotal);
+                    }
+                  });
+                }
+              }
+            });
+          });
+        });
+      }
+    };
+  </script>
+
+  <!-- Compile & Mount Rust App via Trunk -->
+  <link data-trunk rel="rust" data-wasm-opt="z" data-bindgen-target="web" />
+</head>
+<body></body>
+</html>

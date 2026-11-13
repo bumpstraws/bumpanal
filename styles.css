@@ -1,0 +1,573 @@
+:root {
+  --snogo-black: #000000;
+  --snogo-charcoal: #2A2727;
+  --snogo-dark-card: #141313;
+  --snogo-white: #FFFFFF;
+  --snogo-cyan: #33CCCC;
+  --snogo-pink: #FF6699;
+  --snogo-burgundy: #993333;
+  --snogo-gold: #F0B431;
+  --snogo-rose: #FBBD98;
+  --font-main: 'Montserrat', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--snogo-black);
+  color: var(--snogo-white);
+  font-family: var(--font-main);
+  scroll-behavior: smooth;
+}
+
+.snogo-landing-wrapper {
+  font-family: var(--font-main);
+  background-color: var(--snogo-black);
+  color: var(--snogo-white);
+  line-height: 1.5;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.snogo-landing-wrapper * {
+  box-sizing: border-box;
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(3deg); }
+}
+
+/* --- Top Promo Bar --- */
+.snogo-topbar {
+  background-color: var(--snogo-charcoal);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.snogo-topbar a {
+  color: var(--snogo-white);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.snogo-topbar a:hover {
+  color: var(--snogo-cyan);
+}
+
+.snogo-telemetry-toggle {
+  background: rgba(51, 204, 204, 0.12);
+  border: 1px solid var(--snogo-cyan);
+  color: var(--snogo-cyan);
+  padding: 4px 10px;
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.snogo-typing-wrap {
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.snogo-typing-dynamic {
+  color: var(--snogo-cyan);
+  font-weight: 700;
+}
+
+/* --- Promo / Discount Code Bar --- */
+.snogo-discount-bar {
+  background: linear-gradient(90deg, #141313 0%, #1f1d1d 50%, #141313 100%);
+  border-bottom: 1px solid rgba(51, 204, 204, 0.3);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.snogo-discount-input {
+  background: #000000;
+  border: 1px solid var(--snogo-cyan);
+  color: var(--snogo-white);
+  padding: 6px 12px;
+  font-family: var(--font-main);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 170px;
+}
+
+.snogo-discount-btn {
+  background: var(--snogo-cyan);
+  color: var(--snogo-black);
+  border: none;
+  padding: 6px 14px;
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.snogo-discount-btn:hover {
+  background: var(--snogo-gold);
+}
+
+.snogo-discount-status {
+  color: var(--snogo-gold);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* --- Collapsible Telemetry Panel --- */
+.snogo-telemetry-panel {
+  background: #0b0f19;
+  border-bottom: 2px solid var(--snogo-pink);
+  padding: 20px 24px;
+  font-size: 13px;
+}
+
+.snogo-telemetry-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.snogo-telemetry-inner h4 {
+  margin: 0 0 10px 0;
+  color: var(--snogo-cyan);
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.snogo-telemetry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.snogo-telemetry-list li {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+}
+
+/* --- Main Navigation Header --- */
+.snogo-header {
+  background-color: var(--snogo-black);
+  padding: 20px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid var(--snogo-cyan);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.snogo-brand {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--snogo-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.snogo-brand i {
+  color: var(--snogo-cyan);
+  font-size: 26px;
+  animation: floatIcon 3.5s ease-in-out infinite;
+}
+
+.snogo-nav {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.snogo-nav a {
+  color: var(--snogo-white);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.snogo-nav a:hover {
+  color: var(--snogo-cyan);
+  transform: translateY(-1px);
+}
+
+.snogo-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.snogo-socials a {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  color: var(--snogo-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.snogo-socials a:hover {
+  background: var(--snogo-cyan);
+  color: var(--snogo-black);
+  transform: scale(1.1);
+}
+
+/* --- Hero Dual Split Banner --- */
+.snogo-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  min-height: 520px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.snogo-hero-panel {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.snogo-hero-noir {
+  background: radial-gradient(circle at top right, #1e293b 0%, #000000 75%);
+  border-right: 1px solid rgba(51, 204, 204, 0.2);
+}
+
+.snogo-hero-gogo {
+  background: radial-gradient(circle at bottom left, #3b0d24 0%, #000000 75%);
+}
+
+.snogo-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.badge-cyan {
+  background: rgba(51, 204, 204, 0.15);
+  color: var(--snogo-cyan);
+  border: 1px solid var(--snogo-cyan);
+}
+
+.badge-pink {
+  background: rgba(255, 102, 153, 0.15);
+  color: var(--snogo-pink);
+  border: 1px solid var(--snogo-pink);
+}
+
+.snogo-hero-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  animation: floatIcon 4s ease-in-out infinite;
+}
+
+.snogo-hero-panel h1, .snogo-hero-panel h2 {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin: 0 0 14px 0;
+  text-transform: uppercase;
+}
+
+.snogo-hero-panel p {
+  font-size: 16px;
+  color: #cbd5e1;
+  max-width: 460px;
+  margin: 0 0 24px 0;
+}
+
+/* --- Section Containers --- */
+.snogo-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.snogo-section-light {
+  background-color: var(--snogo-white);
+  color: var(--snogo-black);
+  max-width: 100%;
+}
+
+.snogo-section-light > .snogo-section-header,
+.snogo-section-light > .snogo-grid {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.snogo-section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.snogo-section-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 12px 0;
+}
+
+.snogo-section-header p {
+  font-size: 16px;
+  opacity: 0.8;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* --- Product Cards Grid --- */
+.snogo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 26px;
+}
+
+.snogo-card {
+  background-color: var(--snogo-dark-card);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.snogo-section-light .snogo-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: var(--snogo-black);
+}
+
+.snogo-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--snogo-cyan);
+  box-shadow: 0 12px 30px rgba(51, 204, 204, 0.15);
+}
+
+.snogo-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.snogo-card-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
+  background: rgba(51, 204, 204, 0.1);
+  color: var(--snogo-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.snogo-card:hover .snogo-card-icon {
+  transform: rotate(-8deg) scale(1.1);
+  background: var(--snogo-cyan);
+  color: var(--snogo-black);
+}
+
+.snogo-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  background: var(--snogo-burgundy);
+  color: var(--snogo-white);
+}
+
+.snogo-tag.tag-new { background: var(--snogo-pink); color: var(--snogo-black); }
+.snogo-tag.tag-bundle { background: var(--snogo-gold); color: var(--snogo-black); }
+.snogo-tag.tag-cyan { background: var(--snogo-cyan); color: var(--snogo-black); }
+
+.snogo-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.snogo-card p {
+  font-size: 14px;
+  opacity: 0.78;
+  margin: 0 0 20px 0;
+  min-height: 42px;
+}
+
+/* --- Metallic Finish Swatches --- */
+.snogo-swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.snogo-swatch-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.65;
+  margin-right: 4px;
+}
+
+.swatch-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.snogo-section-light .swatch-dot {
+  border-color: rgba(0,0,0,0.2);
+}
+
+.swatch-silver { background: linear-gradient(135deg, #f1f5f9, #94a3b8); }
+.swatch-gold { background: linear-gradient(135deg, #fde047, #ca8a04); }
+.swatch-rosegold { background: linear-gradient(135deg, #fecdd3, #e11d48); }
+.swatch-nitride { background: linear-gradient(135deg, #475569, #0f172a); }
+.swatch-burgundy { background: linear-gradient(135deg, #be123c, #4c0519); }
+
+/* --- Accessories Interactive Filter Tabs --- */
+.snogo-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.snogo-tab-btn {
+  padding: 12px 26px;
+  background: transparent;
+  color: var(--snogo-white);
+  border: 1px solid rgba(255,255,255,0.25);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.snogo-tab-btn.active, .snogo-tab-btn:hover {
+  background: var(--snogo-cyan);
+  color: var(--snogo-black);
+  border-color: var(--snogo-cyan);
+}
+
+/* --- Shopify Buy Button Mount Styling --- */
+.snogo-shopify-mount {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 70px;
+}
+
+.snogo-section-light .snogo-shopify-mount {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* --- Footer --- */
+.snogo-footer {
+  background-color: var(--snogo-black);
+  border-top: 3px solid var(--snogo-cyan);
+  padding: 60px 24px 30px;
+  color: var(--snogo-white);
+}
+
+.snogo-footer-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.snogo-footer h4 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 20px 0;
+  color: var(--snogo-cyan);
+}
+
+.snogo-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.snogo-footer ul li {
+  margin-bottom: 10px;
+}
+
+.snogo-footer ul a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.snogo-footer ul a:hover {
+  color: var(--snogo-cyan);
+}
